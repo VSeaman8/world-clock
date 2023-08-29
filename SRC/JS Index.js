@@ -12,7 +12,7 @@ function updDateTime() {
   }
 
   let sydneyElement = document.querySelector("#sydney");
-  if (sydneyElementElement) {
+  if (sydneyElement) {
     let sydneyDateElement = sydneyElement.querySelector(".date");
     let sydneyTimeElement = sydneyElement.querySelector(".time");
     let sydneyTime = moment().tz("Australia/Sydney");
@@ -26,11 +26,15 @@ function updDateTime() {
 
 function updateCity(event) {
   let cityTimeZone = event.target.value;
+  if (cityTimeZone === "current") {
+    cityTimeZone = moment.tz.guess();
+  }
   let cityName = cityTimeZone.replace("_", " ").split("/")[1];
   let cityTime = moment().tz(cityTimeZone);
 
   let citiesElement = document.querySelector("#cities");
-  citiesElement.innerHTML = `<div class="city">
+  citiesElement.innerHTML = `
+    <div class="city">
           <div>
             <h2>${cityName}</h2>
             <div class="date">${cityTime.format("MMMM Do YYYY")}</div>
@@ -38,7 +42,9 @@ function updateCity(event) {
           <div class="time">${cityTime.format(
             "h:mm:ss [<small>]A[</small>]"
           )}</div>
-        </div>`;
+        </div>
+        <a href="wolrd-clock-index.html">All Cities </a>
+        `;
 }
 
 updDateTime();
